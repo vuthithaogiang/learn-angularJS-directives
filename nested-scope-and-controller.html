@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular.min.js"
+        integrity="sha512-1qSuCpdoteBVxXOewHUBoVw+cvT1/kr+RuFK0HQsZFe6h7SEpm5VzXR1bBptPLyvQpxoaP/or5NUVRS4WwWgWA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Nested Scope and Controller</title>
+</head>
+
+<body ng-app="myApp">
+    <div>
+        <h2>Nested controllers with model variables defined directly on the scopes</h2>
+        (typing on an input field, with a data binding to the model, overrides the
+        same variable of a parent scope)
+    </div>
+
+    <div ng-controller="firstControllerScope">
+        <h3>First Controller</h3>
+        <strong>First name:</strong>
+        {{firstName}} <br>
+        <br>
+
+        <label>Set th first name:
+            <input type="text" ng-model="firstName">
+        </label> <br>
+
+        <div ng-controller="secondControllerScope">
+            <h3>Second controller (inside First)</h3>
+            <strong>First name (from First):</strong>
+            {{firstName}} <br>
+
+            <strong>Last name (new variable):</strong>
+            {{lastName}} <br>
+
+            <strong>Full name:</strong> {{getFullName()}} <br>
+            <br>
+
+            <label>Set the first name:
+                <input type="text" ng-model="firstName">
+            </label>
+            <br>
+
+            <label>Set the last name:
+                <input type="text" ng-model="lastName">
+            </label>
+            <br>
+
+            <div ng-controller="thirdControllerScope">
+                <h3>Third Controller (inside Second and First)</h3>
+                <strong>First name (from First):</strong>
+                {{firstName}}<br>
+
+                <label>Set the first name:
+                    <input type="text" ng-model="firstName">
+                </label>
+                <br>
+
+                <label>Set the middle name:
+                    <input type="text" ng-model="middleName">
+                </label>
+                <br>
+
+                <label>Set the last name:
+                    <input type="text" ng-model="lastName">
+                </label>
+                <br>
+
+            </div>
+
+        </div>
+    </div>
+    <br>
+
+    <p>
+    <h2>Nested controllers with model variables defined indise objects</h2>
+    (typing in input field, with a data binding to the model, acts on a specific
+    object without overriding variables)
+    </p>
+
+
+    <div ng-controller="firstControllerObj">
+        <h3>First Controller</h3>
+        <strong>First name:</strong>
+        {{firstMoldelObj.firstName}} <br>
+        <br>
+
+        <label>Set the first name:
+            <input type="text" ng-model="firstModelObj.firstName">
+        </label>
+        <br>
+        <br>
+
+        <div ng-controller="secondControllerObj">
+            <h3>Second controller (inside First)</h3>
+
+            <strong>First name (form First):</strong>
+            {{firstModelObj.firstName}} <br>
+
+
+            <strong>Last name (from Second):</strong>
+            {{secondModelObj.lastName}} <br>
+
+            <strong>Full name:</strong> {{getFullName()}} <br>
+
+            <label>Set the first name:
+                <input type="text" ng-model="firstModelObj.firstName">
+            </label>
+            <br>
+
+            <label>Set the last name:
+                <input type="text" ng-model="secondModelObj.lastName">
+            </label>
+            <br>
+
+            <div ng-controller="thirdControllerObj">
+                <h3>Third controller (inside Second and First)</h3>
+                <strong>First name (from First):</strong> {{firstModelObj.firstName}}<br />
+                <strong>Middle name (from Third):</strong> {{thirdModelObj.middleName}}<br />
+                <strong>Last name (from Second):</strong> {{secondModelObj.lastName}}<br />
+                <strong>Last name (from Third):</strong> {{thirdModelObj.lastName}}<br />
+                <strong>Full name (redefined in Third):</strong> {{getFullName()}}<br />
+                <br />
+                <label>Set the first name: <input type="text" ngmodel="
+                    firstModelObj.firstName" /></label><br />
+                <label>Set the middle name: <input type="text" ngmodel="
+                    thirdModelObj.middleName" /></label><br />
+                <label>Set the last name: <input type="text" ngmodel="
+                    thirdModelObj.lastName" /></label>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+<script src="/script.js"></script>
+
+</html>
